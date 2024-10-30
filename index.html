@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Diwali Animation</title>
+    <style>
+        
+        body, html {
+        ``    margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(180deg, #0d0d0d 50%, #1b1b1b);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            color: #ffeb3b;
+        }
+
+        
+        h1 {
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 140, 0, 0.5);
+            animation: glow 1.5s infinite alternate;
+        }
+
+      
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 0, 1), 0 0 60px rgba(255, 140, 0, 0.8); }
+        }
+
+        
+        .diya-container {
+            margin-top: 10px;
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+        }
+
+        .diya-base {
+            width: 50px;
+            height: 25px;
+            background-color: #cc3300;
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            bottom: -10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .diya-flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 20px;
+            background-color: #ff9900;
+            border-radius: 50% 50% 50% 50%;
+            animation: flicker 0.2s infinite alternate;
+        }
+
+        .diya-flame::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            top: 5px;
+            left: 2.5px;
+        }
+
+        @keyframes flicker {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+       
+        .rocket {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            height: 15px;
+            background-color: #ff4500;
+            animation: launch 1.5s ease-out forwards;
+        }
+
+       
+        @keyframes launch {
+            0% { bottom: 0; opacity: 1; }
+            80% { bottom: 75%; opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+       
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #ffeb3b;
+            opacity: 0;
+            animation: explode 1.2s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .lantern {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(180deg, #ffa500, #ff4500);
+            border-radius: 50% 50% 30% 30%;
+            opacity: 0.8;
+            animation: floatLanterns 6s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
+        }
+
+        @keyframes floatLanterns {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            20% { opacity: 0.9; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Diwali</h1>
+        <h2>2025
+        </h2>
+
+            <div class="diya-container">
+            <div class="diya-base"></div>
+            <div class="diya-flame"></div>
+        </div>
+    </div>
+
+    <script>
+
+        function createFirework() {
+            const container = document.querySelector('.container');
+            const rocket = document.createElement('div');
+            rocket.classList.add('rocket');
+            rocket.style.left = Math.random() * 100 + 'vw';
+            container.appendChild(rocket);
+
+        
+            setTimeout(() => {
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    particle.style.left = `${Math.random() * 80 - 40}px`;
+                    particle.style.top = `${Math.random() * 80 - 40}px`;
+                    particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    rocket.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 1200);
+                }
+            }, 1400);
+
+        
+            setTimeout(() => rocket.remove(), 1500);
+        }
+
+        function createLantern() {
+            const container = document.querySelector('.container');
+            const lantern = document.createElement('div');
+            lantern.classList.add('lantern');
+            lantern.style.left = Math.random() * 100 + 'vw';
+            container.appendChild(lantern);
+
+            setTimeout(() => lantern.remove(), 6000);
+        }
+        setInterval(createFirework, 2500);
+        setInterval(createLantern, 2000);
+    </script>
+</body>
+</html>
